@@ -1,0 +1,66 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}
+TODO List
+
+{% endblock title %}
+
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/todo.css' %}">
+
+{% endblock head %}
+
+
+{% block body %} 
+<div class="todo-container">
+    <h1>تودو لیست</h1>
+    <ul class="todo-list">
+      {% for task in todo %}
+        <li>
+          <span>{{ task.title }} </span>
+          <form method='POST' action={% url "todo-delete" task.id %}>
+            {% csrf_token %}
+            <input class="delete-button" type="submit" value="Delete">
+          </form>
+
+          <form method='POST' action={% url "todo-update" task.id %}>
+            {% csrf_token %}
+            <input class="delete-button" type="submit" value="Update">
+          </form>
+
+          <div>
+ 
+
+        </li>
+      {% endfor %}
+      
+
+    </ul>
+  </div>
+  <br>
+  <div class="todo-form-container">
+    <h2>تسک جدید</h2>
+    <form method="post" action="{% url 'todo-create' %}">
+      {% csrf_token %}
+      {% comment %} <label for="{{ form.title.id_for_label }}">عنوان:</label> {% endcomment %}
+      {{ form.as_p }}
+      <button type="submit">ذخیره</button>
+    </form>
+  </div>
+{% endblock body %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>تودو لیست</title>
+</head>
+<body>
+  
+</body>
+</html>
